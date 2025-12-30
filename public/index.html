@@ -50,16 +50,27 @@
             <button class="copy-btn" data-copy="cleaned">コピー</button>
           </div>
           <p id="cleaned-url" class="result-value">-</p>
+          <p class="result-sub">ASIN: <span id="asin">-</span></p>
         </div>
 
-        <div class="result meta">
-          <div>
-            <h3>ASIN</h3>
-            <p id="asin" class="result-value">-</p>
+        <div class="result">
+          <div class="result-header">
+            <h2>除去したパラメータ</h2>
           </div>
-          <div>
-            <h3>除去したパラメータ</h3>
-            <p id="removed" class="result-value">-</p>
+          <div class="table-wrap">
+            <table class="removed-table">
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody id="removed-body">
+                <tr>
+                  <td colspan="2">-</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>

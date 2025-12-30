@@ -4,7 +4,7 @@ const statusEl = document.getElementById("status");
 const expandedEl = document.getElementById("expanded-url");
 const cleanedEl = document.getElementById("cleaned-url");
 const asinEl = document.getElementById("asin");
-const removedEl = document.getElementById("removed");
+const removedBody = document.getElementById("removed-body");
 const submitBtn = document.getElementById("submit-btn");
 
 function setStatus(message, type = "info") {
@@ -16,18 +16,25 @@ function setResult({ expanded_url, cleaned_url, asin, removed_params }) {
   expandedEl.textContent = expanded_url || "-";
   cleanedEl.textContent = cleaned_url || "-";
   asinEl.textContent = asin || "-";
+  removedBody.innerHTML = "";
   if (removed_params && removed_params.length) {
-    removedEl.textContent = removed_params
-      .map((entry) => {
-        if (!entry || typeof entry !== "object") {
-          return "";
-        }
-        return entry.value ? `${entry.key}=${entry.value}` : entry.key;
-      })
-      .filter(Boolean)
-      .join(", ");
+    for (const entry of removed_params) {
+      if (!entry || typeof entry !== "object") {
+        continue;
+      }
+      const row = document.createElement("tr");
+      const keyCell = document.createElement("td");
+      const valueCell = document.createElement("td");
+      keyCell.textContent = entry.key || "-";
+      valueCell.textContent = entry.value || "-";
+      row.append(keyCell, valueCell);
+      removedBody.appendChild(row);
+    }
+    if (!removedBody.children.length) {
+      removedBody.innerHTML = "<tr><td colspan=\"2\">-</td></tr>";
+    }
   } else {
-    removedEl.textContent = "-";
+    removedBody.innerHTML = "<tr><td colspan=\"2\">-</td></tr>";
   }
 }
 
