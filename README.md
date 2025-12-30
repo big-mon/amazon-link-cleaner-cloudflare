@@ -1,5 +1,7 @@
 # amazon-link-cleaner-cloudflare
 
+![amazon-link-cleaner-cloudflare](./public/ogp.jpg)
+
 Cloudflare Pages + Pages Functions で Amazon リンクの短縮URL展開とクリーン化を行うミニツールです。
 
 ## できること
