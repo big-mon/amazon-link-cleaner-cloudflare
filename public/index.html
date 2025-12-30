@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon Link Cleaner</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Cloudflare Pages + Pages Functions</p>
+        <h1>Amazonリンクを一瞬で展開してクリーン化</h1>
+        <p class="lead">
+          短縮URLを展開し、アフィリエイトや追跡パラメータを外して正規URLを作ります。
+        </p>
+      </section>
+
+      <section class="card">
+        <form id="clean-form" class="form">
+          <label class="label" for="url-input">Amazon URL または amzn.to の短縮URL</label>
+          <div class="input-row">
+            <input
+              id="url-input"
+              name="url"
+              type="url"
+              inputmode="url"
+              placeholder="https://amzn.to/xxxxxx"
+              autocomplete="off"
+              required
+            />
+            <button id="submit-btn" type="submit">展開してクリーン化</button>
+          </div>
+          <p id="status" class="status" role="status"></p>
+        </form>
+      </section>
+
+      <section class="results" aria-live="polite">
+        <div class="result">
+          <div class="result-header">
+            <h2>展開後URL</h2>
+            <button class="copy-btn" data-copy="expanded">コピー</button>
+          </div>
+          <p id="expanded-url" class="result-value">-</p>
+        </div>
+
+        <div class="result">
+          <div class="result-header">
+            <h2>クリーンURL</h2>
+            <button class="copy-btn" data-copy="cleaned">コピー</button>
+          </div>
+          <p id="cleaned-url" class="result-value">-</p>
+        </div>
+
+        <div class="result meta">
+          <div>
+            <h3>ASIN</h3>
+            <p id="asin" class="result-value">-</p>
+          </div>
+          <div>
+            <h3>除去したパラメータ</h3>
+            <p id="removed" class="result-value">-</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card note">
+        <p>
+          エラーになる場合は、Amazon以外のURLが最終URLになっていないか、または短縮URLが無効な可能性があります。
+        </p>
+      </section>
+    </main>
+
+    <script src="/main.js" defer></script>
+  </body>
+</html>
