@@ -3,7 +3,7 @@
 Cloudflare Pages + Pages Functions で Amazon リンクの短縮URL展開とクリーン化を行うミニツールです。
 
 ## できること
-- 短縮URL（amzn.to など）を最大10回まで展開
+- 短縮URL（amzn.to など）を最大5回まで展開
 - Amazon URL の追跡系パラメータを削除し、可能なら `https://{host}/dp/{ASIN}` に正規化
 - 展開後URL、クリーンURL、ASIN、除去したパラメータを表示＆コピー
 
@@ -30,6 +30,7 @@ wrangler pages dev public --functions=functions --compatibility-date=2024-01-01
 ## セキュリティ・仕様
 - http/https のみ許可
 - `localhost` / `127.*` / `0.0.0.0` / `::1` などのホストは拒否
-- 最大リダイレクト回数は10回
+- 最大リダイレクト回数は5回
+- 1回のフェッチは8秒でタイムアウト
 - 最終URLが Amazon ドメインでない場合はエラー
 - API は同一オリジンのブラウザリクエストのみ許可
