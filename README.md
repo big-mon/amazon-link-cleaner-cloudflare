@@ -44,8 +44,7 @@ wrangler pages dev public --functions=functions --compatibility-date=2024-01-01
 1. Cloudflare Pages で新しいプロジェクトを作成し、このリポジトリを接続。
 2. Build command は空欄（または `npm run build` 等を使わない）に設定。
 3. Output directory を `public` に設定。
-4. Functions directory を `functions` に設定。
-5. デプロイすると `/api/clean` とフロントが同一ドメインで動作します。
+4. デプロイすると `/api/clean` とフロントが同一ドメインで動作します。
 
 ## セキュリティ・仕様
 - http/https のみ許可
