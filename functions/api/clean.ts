@@ -13,7 +13,7 @@ type ErrorResult = {
   error: string;
 };
 
-const MAX_REDIRECTS = 10;
+const MAX_REDIRECTS = 5;
 const FETCH_TIMEOUT_MS = 8000;
 
 const BLOCKED_HOSTS = [
@@ -130,6 +130,9 @@ function cleanAmazonUrl(
 
   const keysToRemove = new Set<string>();
   for (const [key, value] of expanded.searchParams) {
+    // ASINが取れないページでは機能に影響するクエリもあるため、
+    // 既知のアフィリエイト/リファラ/追跡系のみ除去する。
+    // `pd_rd_` はAmazon内部の配置/リダイレクト由来の追跡パラメータ。
     if (REMOVE_PARAMS.includes(key) || key.startsWith("pd_rd_")) {
       removedParams.push({ key, value });
       keysToRemove.add(key);
