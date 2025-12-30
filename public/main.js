@@ -97,6 +97,28 @@ for (const button of document.querySelectorAll(".copy-btn")) {
   });
 }
 
+for (const button of document.querySelectorAll(".open-btn")) {
+  button.addEventListener("click", () => {
+    const target = button.dataset.open;
+    const value =
+      target === "expanded" ? expandedEl.textContent : target === "cleaned" ? cleanedEl.textContent : "";
+    if (!value || value === "-") {
+      setStatus("開くURLがありません。", "error");
+      return;
+    }
+    try {
+      const parsed = new URL(value);
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+        setStatus("http/https 以外のURLは開けません。", "error");
+        return;
+      }
+      window.open(parsed.toString(), "_blank", "noopener");
+    } catch {
+      setStatus("無効なURLのため開けません。", "error");
+    }
+  });
+}
+
 input.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     handleSubmit(event);

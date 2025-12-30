@@ -155,6 +155,12 @@ button#submit-btn:disabled {
   gap: 12px;
 }
 
+.result-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .result-value {
   margin: 0;
   word-break: break-all;
@@ -174,6 +180,16 @@ button#submit-btn:disabled {
 }
 
 .copy-btn:hover {
+  transform: translateY(-1px);
+}
+
+.open-btn {
+  background: #efe7dd;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.open-btn:hover {
   transform: translateY(-1px);
 }
 
