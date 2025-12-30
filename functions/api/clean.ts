@@ -5,7 +5,7 @@ type CleanResult = {
   expanded_url: string;
   cleaned_url: string;
   asin?: string;
-  removed_params: string[];
+  removed_params: Array<{ key: string; value: string }>;
   redirect_hops: number;
 };
 
@@ -101,24 +101,26 @@ function extractAsin(pathname: string): string | undefined {
   return undefined;
 }
 
-function cleanAmazonUrl(expanded: URL): { cleaned: URL; asin?: string; removedParams: string[] } {
-  const removedParams: string[] = [];
+function cleanAmazonUrl(
+  expanded: URL
+): { cleaned: URL; asin?: string; removedParams: Array<{ key: string; value: string }> } {
+  const removedParams: Array<{ key: string; value: string }> = [];
   const asin = extractAsin(expanded.pathname);
 
-  const paramsToReport = new Set<string>();
-  for (const [key] of expanded.searchParams) {
+  const keysToRemove = new Set<string>();
+  for (const [key, value] of expanded.searchParams) {
     if (REMOVE_PARAMS.includes(key) || key.startsWith("pd_rd_")) {
-      paramsToReport.add(key);
+      removedParams.push({ key, value });
+      keysToRemove.add(key);
     }
   }
-  removedParams.push(...paramsToReport);
 
   let cleaned: URL;
   if (asin) {
     cleaned = new URL(`https://${expanded.host}/dp/${asin}`);
   } else {
     cleaned = new URL(expanded.toString());
-    for (const key of removedParams) {
+    for (const key of keysToRemove) {
       cleaned.searchParams.delete(key);
     }
     cleaned.hash = "";

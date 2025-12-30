@@ -25,7 +25,10 @@ GET /api/clean?url=<encoded>
   "expanded_url": "https://www.amazon.co.jp/dp/B000000000",
   "cleaned_url": "https://www.amazon.co.jp/dp/B000000000",
   "asin": "B000000000",
-  "removed_params": ["tag", "ref"],
+  "removed_params": [
+    { "key": "tag", "value": "example-22" },
+    { "key": "ref", "value": "abc" }
+  ],
   "redirect_hops": 2
 }
 ```

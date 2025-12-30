@@ -16,7 +16,19 @@ function setResult({ expanded_url, cleaned_url, asin, removed_params }) {
   expandedEl.textContent = expanded_url || "-";
   cleanedEl.textContent = cleaned_url || "-";
   asinEl.textContent = asin || "-";
-  removedEl.textContent = removed_params && removed_params.length ? removed_params.join(", ") : "-";
+  if (removed_params && removed_params.length) {
+    removedEl.textContent = removed_params
+      .map((entry) => {
+        if (!entry || typeof entry !== "object") {
+          return "";
+        }
+        return entry.value ? `${entry.key}=${entry.value}` : entry.key;
+      })
+      .filter(Boolean)
+      .join(", ");
+  } else {
+    removedEl.textContent = "-";
+  }
 }
 
 async function handleSubmit(event) {
