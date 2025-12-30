@@ -1,0 +1,7 @@
+{
+  "name": "amazon-link-cleaner-cloudflare",
+  "private": true,
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231218.0"
+  }
+}
