@@ -66,6 +66,27 @@ const REMOVE_PARAMS = [
   "psc",
 ];
 
+function isSameOriginRequest(request: Request): boolean {
+  const reqUrl = new URL(request.url);
+  const origin = request.headers.get("Origin");
+  if (origin) {
+    return origin === reqUrl.origin;
+  }
+  const referer = request.headers.get("Referer");
+  if (referer) {
+    try {
+      return new URL(referer).origin === reqUrl.origin;
+    } catch {
+      return false;
+    }
+  }
+  const secFetchSite = request.headers.get("Sec-Fetch-Site");
+  if (secFetchSite) {
+    return secFetchSite === "same-origin";
+  }
+  return false;
+}
+
 function isHttpUrl(url: URL): boolean {
   return url.protocol === "http:" || url.protocol === "https:";
 }
@@ -190,6 +211,13 @@ async function expandRedirects(input: URL): Promise<{ finalUrl: URL; hops: numbe
 }
 
 export const onRequestGet: PagesFunction<Env> = async ({ request }) => {
+  if (!isSameOriginRequest(request)) {
+    return new Response(JSON.stringify({ error: "Forbidden." } satisfies ErrorResult), {
+      status: 403,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
   const url = new URL(request.url);
   const input = url.searchParams.get("url");
 

@@ -11,28 +11,6 @@ Cloudflare Pages + Pages Functions で Amazon リンクの短縮URL展開とク�
 1. Cloudflare Pages へデプロイする（下記参照）。
 2. 画面に URL を貼り付けて「展開してクリーン化」を実行。
 
-API だけ使う場合は次の形で呼び出せます。
-
-```
-GET /api/clean?url=<encoded>
-```
-
-レスポンス例:
-
-```json
-{
-  "input_url": "https://amzn.to/xxxxx",
-  "expanded_url": "https://www.amazon.co.jp/dp/B000000000",
-  "cleaned_url": "https://www.amazon.co.jp/dp/B000000000",
-  "asin": "B000000000",
-  "removed_params": [
-    { "key": "tag", "value": "example-22" },
-    { "key": "ref", "value": "abc" }
-  ],
-  "redirect_hops": 2
-}
-```
-
 ## ローカル実行
 Cloudflare Wrangler を使って Pages + Functions をローカルで起動します。
 
@@ -54,3 +32,4 @@ wrangler pages dev public --functions=functions --compatibility-date=2024-01-01
 - `localhost` / `127.*` / `0.0.0.0` / `::1` などのホストは拒否
 - 最大リダイレクト回数は10回
 - 最終URLが Amazon ドメインでない場合はエラー
+- API は同一オリジンのブラウザリクエストのみ許可
